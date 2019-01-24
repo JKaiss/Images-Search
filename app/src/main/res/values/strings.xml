@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SearchImage</string>
+    <string name="search_hint">Saisir votre recherche</string>
+</resources>
