@@ -26,7 +26,7 @@ public class MainViewModel extends AbstratViewModel {
     private SafeMutableLiveData<ResponseEntity> resultDisposableSingleObserver = new SafeMutableLiveData<>();
 
     @Inject
-    private MainViewModel(SearchImageApi searchImageApi) {
+    public MainViewModel(SearchImageApi searchImageApi) {
         this.searchImageApi = searchImageApi;
     }
 
