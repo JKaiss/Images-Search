@@ -1,5 +1,7 @@
 package com.jaafoura.searchimage.viewmodel;
 
+import android.util.Log;
+
 import com.jaafoura.searchimage.data.model.ResponseEntity;
 import com.jaafoura.searchimage.data.network.SearchImageApi;
 import com.jaafoura.searchimage.utils.SafeMutableLiveData;
@@ -24,7 +26,7 @@ public class MainViewModel extends AbstratViewModel {
     private SafeMutableLiveData<ResponseEntity> resultDisposableSingleObserver = new SafeMutableLiveData<>();
 
     @Inject
-    public MainViewModel(SearchImageApi searchImageApi) {
+    private MainViewModel(SearchImageApi searchImageApi) {
         this.searchImageApi = searchImageApi;
     }
 
@@ -32,7 +34,11 @@ public class MainViewModel extends AbstratViewModel {
         mCompositeDisposable.add(searchImageApi.getImages(ACCESS_KEY, searchText)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(resultDisposableSingleObserver::setValue));
+                .subscribe(resultDisposableSingleObserver::setValue, this::setThrowable));
+    }
+
+    private void setThrowable(Throwable throwable) {
+        Log.e("Error handling : ", throwable.getMessage());
     }
 
 }
